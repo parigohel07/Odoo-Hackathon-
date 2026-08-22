@@ -61,7 +61,7 @@ export default function Navbar() {
             <Compass className="size-5" aria-hidden />
           </span>
           <span className="font-display text-lg font-bold tracking-tight text-ink">
-            Khoosh<span className="text-primary">ii</span>
+            Globe<span className="text-primary">Trotter</span>
           </span>
         </NavLink>
 

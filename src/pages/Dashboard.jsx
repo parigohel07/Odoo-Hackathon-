@@ -51,7 +51,7 @@ export default function Dashboard() {
       <Navbar />
       <PageContainer>
         <section className="mb-8">
-          <p className="text-xs font-semibold tracking-widest text-primary uppercase">Khooshii HQ</p>
+          <p className="text-xs font-semibold tracking-widest text-primary uppercase">GlobeTrotter HQ</p>
           <h1 className="font-display mt-1.5 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
             Welcome back, {user.name.split(' ')[0]}
           </h1>

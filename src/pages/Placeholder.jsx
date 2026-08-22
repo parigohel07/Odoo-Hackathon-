@@ -15,7 +15,7 @@ export default function Placeholder() {
         <EmptyState
           icon={Construction}
           title="This screen is on the roadmap"
-          description={`The route “${pathname}” is part of Khooshii but will be built in an upcoming step. Auth, theming and the design system are ready.`}
+          description={`The route “${pathname}” is part of GlobeTrotter but will be built in an upcoming step. Auth, theming and the design system are ready.`}
           action={
             <Button to="/" variant="secondary">
               Back to Home

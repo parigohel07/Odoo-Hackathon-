@@ -111,7 +111,7 @@ export default function Login() {
       </form>
 
       <p className="mt-8 text-center text-sm text-ink-muted">
-        New to Khooshii?{' '}
+        New to GlobeTrotter?{' '}
         <Link to="/register" className="font-semibold text-primary hover:underline">
           Create an account
         </Link>

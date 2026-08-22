@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { DEMO_USER } from '../data/mockData'
 import { UserContext } from './user'
 
-const STORAGE_KEY = 'khooshii-user'
+const STORAGE_KEY = 'globetrotter-user'
 
 function loadUser() {
   try {

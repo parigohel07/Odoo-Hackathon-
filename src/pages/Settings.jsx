@@ -8,8 +8,8 @@ import { cn } from '../common/cn'
 import { useTheme } from '../context/theme'
 import { useTrips } from '../context/trips'
 
-const NOTIFICATION_KEY = 'khooshii-notifications'
-const CURRENCY_KEY = 'khooshii-currency'
+const NOTIFICATION_KEY = 'globetrotter-notifications'
+const CURRENCY_KEY = 'globetrotter-currency'
 
 function loadPreference(key, fallback) {
   try {
@@ -35,7 +35,7 @@ export default function Settings() {
   }, [currency])
 
   const handleClearData = () => {
-    window.localStorage.removeItem('khooshii-trips')
+    window.localStorage.removeItem('globetrotter-trips')
     window.location.reload()
   }
 
@@ -45,7 +45,7 @@ export default function Settings() {
       <PageContainer size="md">
         <header className="mb-8">
           <h1 className="font-display text-4xl font-semibold tracking-tight text-ink">Settings</h1>
-          <p className="mt-2 text-sm text-ink-muted">Tune Khooshii to your taste. Preferences are saved on this device.</p>
+          <p className="mt-2 text-sm text-ink-muted">Tune GlobeTrotter to your taste. Preferences are saved on this device.</p>
         </header>
 
         <div className="space-y-6">

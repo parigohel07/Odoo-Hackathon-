@@ -79,7 +79,7 @@ export default function Profile() {
       <PageContainer size="md">
         <header className="mb-8">
           <h1 className="font-display text-4xl font-semibold tracking-tight text-ink">Profile</h1>
-          <p className="mt-2 text-sm text-ink-muted">How you appear across Khooshii and on shared itineraries.</p>
+          <p className="mt-2 text-sm text-ink-muted">How you appear across GlobeTrotter and on shared itineraries.</p>
         </header>
 
         <Card className="mb-8 p-6 sm:p-8">

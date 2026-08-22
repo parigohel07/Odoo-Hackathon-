@@ -18,7 +18,7 @@ export default function ShareTrip() {
 
   let trip = null
   try {
-    const stored = window.localStorage.getItem('khooshii-trips')
+    const stored = window.localStorage.getItem('globetrotter-trips')
     const trips = stored ? JSON.parse(stored) : []
     if (Array.isArray(trips)) trip = trips.find((t) => t.id === id) || null
   } catch {
@@ -38,7 +38,7 @@ export default function ShareTrip() {
             icon={Compass}
             title="This shared itinerary is unavailable"
             description="The link may be incorrect, or the traveller may have deleted this trip."
-            action={<Button to="/" variant="secondary">Visit Khooshii</Button>}
+            action={<Button to="/" variant="secondary">Visit GlobeTrotter</Button>}
           />
         </div>
       </div>
@@ -53,7 +53,7 @@ export default function ShareTrip() {
         <div aria-hidden className="absolute inset-0 bg-espresso-950/35" />
         <div className="relative mx-auto flex max-w-3xl flex-col gap-2 px-6 py-14 text-center sm:py-16">
           <span className="font-display mx-auto mb-2 rounded-full bg-white/20 px-4 py-1 text-xs font-semibold tracking-wide text-white backdrop-blur-sm">
-            Shared via Khooshii
+            Shared via GlobeTrotter
           </span>
           <h1 className="font-display text-4xl font-semibold tracking-tight text-white sm:text-5xl">{trip.name}</h1>
           <p className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-sm text-white/85">
@@ -109,7 +109,7 @@ export default function ShareTrip() {
 
         <footer className="mt-12 border-t border-line pt-6 text-center">
           <p className="font-display text-lg font-bold text-ink">
-            Khoosh<span className="text-primary">ii</span>
+            Globe<span className="text-primary">Trotter</span>
           </p>
           <p className="mt-1 text-xs text-ink-muted">
             Plan trips worth remembering.{' '}

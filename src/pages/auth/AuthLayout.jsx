@@ -33,7 +33,7 @@ export default function AuthLayout({ title, subtitle, children }) {
               <Compass className="size-6" aria-hidden />
             </span>
             <span className="font-display text-xl font-bold tracking-tight text-white">
-              Khoosh<span className="text-candy-300">ii</span>
+              Globe<span className="text-candy-300">Trotter</span>
             </span>
           </div>
 
@@ -66,7 +66,7 @@ export default function AuthLayout({ title, subtitle, children }) {
           </div>
 
           <p className="text-xs tracking-wide text-white/40">
-            Odoo x LDCE Ahmedabad Hackathon · Khooshii
+            Odoo x LDCE Ahmedabad Hackathon · GlobeTrotter
           </p>
         </div>
       </div>
