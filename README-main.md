@@ -203,7 +203,7 @@ git add .
 git commit -m "Add trip creation endpoint"
 git push origin backend
 
-## Development Priorities for Backend (Pari Gohel)
+## Development Priorities for Backend 
 
 1. User functionality, registration and user endpoints on the users table.
 2. Create trip, validating or creating a locations entry, then inserting into trips, including travel type.
