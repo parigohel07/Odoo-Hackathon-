@@ -3,7 +3,7 @@ import { ThemeContext } from './theme'
 
 function getInitialTheme() {
   if (typeof window === 'undefined') return 'light'
-  const stored = window.localStorage.getItem('globetrotter-theme')
+  const stored = window.localStorage.getItem('khooshii-theme')
   if (stored === 'light' || stored === 'dark') return stored
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
@@ -13,7 +13,7 @@ export function ThemeProvider({ children }) {
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark')
-    window.localStorage.setItem('globetrotter-theme', theme)
+    window.localStorage.setItem('khooshii-theme', theme)
   }, [theme])
 
   const toggleTheme = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))

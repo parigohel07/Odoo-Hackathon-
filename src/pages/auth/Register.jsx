@@ -59,7 +59,7 @@ export default function Register() {
   return (
     <AuthLayout
       title="Create your account"
-      subtitle="Join GlobeTrotter and start sketching your next journey."
+      subtitle="Join Khooshii and start sketching your next journey."
     >
       <form onSubmit={handleSubmit} noValidate className="space-y-5">
         <Input

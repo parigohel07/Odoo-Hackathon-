@@ -6,6 +6,7 @@ import Register from './pages/auth/Register'
 import Dashboard from './pages/Dashboard'
 import MyTrips from './pages/trips/MyTrips'
 import CreateTrip from './pages/trips/CreateTrip'
+import Explore from './pages/explore/Explore'
 import Placeholder from './pages/Placeholder'
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/trips" element={<MyTrips />} />
             <Route path="/trips/new" element={<CreateTrip />} />
+            <Route path="/explore" element={<Explore />} />
             <Route path="*" element={<Placeholder />} />
           </Routes>
         </BrowserRouter>

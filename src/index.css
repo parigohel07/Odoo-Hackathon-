@@ -4,7 +4,7 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Outfit", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", "Outfit", ui-serif, Georgia, serif;
 
   --color-candy-50: #fff5f8;
   --color-candy-100: #ffe9f1;
@@ -55,12 +55,12 @@
 }
 
 :root {
-  --page: #fff9fb;
+  --page: #fbf7f5;
   --surface: #ffffff;
-  --surface-2: #fff3f7;
-  --ink: #35262d;
-  --ink-muted: #93777f;
-  --line: #f0dee6;
+  --surface-2: #f7efee;
+  --ink: #2e2228;
+  --ink-muted: #71606a;
+  --line: #ecdfd9;
   --primary: var(--color-candy-500);
   --primary-strong: var(--color-candy-600);
   --primary-soft: var(--color-candy-100);
