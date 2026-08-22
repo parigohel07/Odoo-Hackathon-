@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Query, HTTPException
 from dotenv import load_dotenv
+from supabase import create_client, Client
 import os
 import requests
 from pathlib import Path
@@ -10,16 +11,72 @@ load_dotenv(BASE_DIR / ".env")
 
 app = FastAPI(title="Globetrotter API")
 
+# -----------------------------
+# API KEYS
+# -----------------------------
+
 GEOAPIFY_API_KEY = os.getenv("GEOAPIFY_API_KEY")
 
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+
+
+# -----------------------------
+# SUPABASE CONNECTION
+# -----------------------------
+
+if not SUPABASE_URL or not SUPABASE_KEY:
+    raise RuntimeError("Supabase environment variables are missing")
+
+supabase: Client = create_client(
+    SUPABASE_URL,
+    SUPABASE_KEY
+)
+
+
+# -----------------------------
+# HEALTH CHECK
+# -----------------------------
 
 @app.get("/")
 def health_check() -> dict[str, str]:
     return {"status": "ok"}
 
 
+# -----------------------------
+# TEST SUPABASE CONNECTION
+# -----------------------------
+
+@app.get("/test-supabase")
+def test_supabase():
+    try:
+        response = (
+            supabase
+            .table("locations")
+            .select("id, name, state, country")
+            .limit(10)
+            .execute()
+        )
+
+        return {
+            "status": "connected",
+            "locations": response.data
+        }
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Supabase connection failed: {str(e)}"
+        )
+
+
+# -----------------------------
+# SEARCH LOCATION
+# -----------------------------
+
 @app.get("/search-location")
 def search_location(text: str = Query(..., min_length=2)):
+
     url = "https://api.geoapify.com/v1/geocode/autocomplete"
 
     params = {
@@ -57,12 +114,17 @@ def search_location(text: str = Query(..., min_length=2)):
     return locations
 
 
+# -----------------------------
+# SUGGESTED TOURIST SPOTS
+# -----------------------------
+
 @app.get("/suggested-spots")
 def suggested_spots(
     latitude: float,
     longitude: float,
     limit: int = Query(10, ge=1, le=20)
 ):
+
     url = "https://api.geoapify.com/v2/places"
 
     params = {
