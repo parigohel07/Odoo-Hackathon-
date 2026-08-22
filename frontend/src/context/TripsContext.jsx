@@ -1,38 +1,83 @@
 import { useEffect, useState } from 'react'
-import { TRIPS } from '../data/mockData'
 import { TripsContext } from './trips'
+import { useUser } from './user'
 
-const STORAGE_KEY = 'globetrotter-trips'
+function getStorageKey(user) {
+  const userId = user?.id || user?.email
 
-function loadTrips() {
+  return userId
+    ? `globetrotter-trips-${userId}`
+    : 'globetrotter-trips'
+}
+
+function loadTrips(user) {
   try {
-    const stored = window.localStorage.getItem(STORAGE_KEY)
-    const parsed = stored ? JSON.parse(stored) : null
-    return Array.isArray(parsed) ? parsed : TRIPS
+    const key = getStorageKey(user)
+    const stored = window.localStorage.getItem(key)
+
+    if (!stored) {
+      return []
+    }
+
+    const parsed = JSON.parse(stored)
+
+    return Array.isArray(parsed) ? parsed : []
   } catch (error) {
-    console.warn('Could not load saved trips, falling back to demo data.', error)
-    return TRIPS
+    console.warn('Could not load saved trips.', error)
+    return []
   }
 }
 
 export function TripsProvider({ children }) {
-  const [trips, setTrips] = useState(loadTrips)
+  const { user } = useUser()
 
+  const [trips, setTrips] = useState(() => loadTrips(user))
+
+  // When a different user logs in, load that user's trips.
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(trips))
-  }, [trips])
+    setTrips(loadTrips(user))
+  }, [user?.id, user?.email])
+
+  // Save trips separately for each logged-in user.
+  useEffect(() => {
+    if (!user) return
+
+    const key = getStorageKey(user)
+
+    window.localStorage.setItem(
+      key,
+      JSON.stringify(trips),
+    )
+  }, [trips, user?.id, user?.email])
 
   const addTrip = (trip) => {
-    setTrips((prev) => [{ ...trip, id: `t-${Date.now().toString(36)}` }, ...prev])
+    setTrips((prev) => [
+      {
+        ...trip,
+        id: `t-${Date.now().toString(36)}`,
+      },
+      ...prev,
+    ])
   }
 
   const deleteTrip = (id) => {
-    setTrips((prev) => prev.filter((trip) => trip.id !== id))
+    setTrips((prev) =>
+      prev.filter((trip) => trip.id !== id),
+    )
   }
 
   const updateTrip = (id, patch) => {
     setTrips((prev) =>
-      prev.map((trip) => (trip.id === id ? { ...trip, ...(typeof patch === 'function' ? patch(trip) : patch) } : trip)),
+      prev.map((trip) =>
+        trip.id === id
+          ? {
+              ...trip,
+              ...(typeof patch === 'function'
+                ? patch(trip)
+                : patch),
+            }
+          : trip,
+      ),
     )
   }
 
@@ -40,7 +85,20 @@ export function TripsProvider({ children }) {
     setTrips((prev) =>
       prev.map((trip) =>
         trip.id === tripId
-          ? { ...trip, expenses: [...(Array.isArray(trip.expenses) ? trip.expenses : []), { ...expense, id: `e-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}` }] }
+          ? {
+              ...trip,
+              expenses: [
+                ...(Array.isArray(trip.expenses)
+                  ? trip.expenses
+                  : []),
+                {
+                  ...expense,
+                  id: `e-${Date.now().toString(36)}-${Math.random()
+                    .toString(36)
+                    .slice(2, 6)}`,
+                },
+              ],
+            }
           : trip,
       ),
     )
@@ -49,19 +107,41 @@ export function TripsProvider({ children }) {
   const deleteExpense = (tripId, expenseId) => {
     setTrips((prev) =>
       prev.map((trip) =>
-        trip.id === tripId && Array.isArray(trip.expenses)
-          ? { ...trip, expenses: trip.expenses.filter((expense) => expense.id !== expenseId) }
+        trip.id === tripId &&
+        Array.isArray(trip.expenses)
+          ? {
+              ...trip,
+              expenses: trip.expenses.filter(
+                (expense) => expense.id !== expenseId,
+              ),
+            }
           : trip,
       ),
     )
   }
 
   const clearExpenses = (tripId) => {
-    setTrips((prev) => prev.map((trip) => (trip.id === tripId ? { ...trip, expenses: [] } : trip)))
+    setTrips((prev) =>
+      prev.map((trip) =>
+        trip.id === tripId
+          ? { ...trip, expenses: [] }
+          : trip,
+      ),
+    )
   }
 
   return (
-    <TripsContext.Provider value={{ trips, addTrip, deleteTrip, updateTrip, addExpense, deleteExpense, clearExpenses }}>
+    <TripsContext.Provider
+      value={{
+        trips,
+        addTrip,
+        deleteTrip,
+        updateTrip,
+        addExpense,
+        deleteExpense,
+        clearExpenses,
+      }}
+    >
       {children}
     </TripsContext.Provider>
   )

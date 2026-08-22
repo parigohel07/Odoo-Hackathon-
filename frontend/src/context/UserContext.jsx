@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { DEMO_USER } from '../data/mockData'
 import { UserContext } from './user'
 
 const STORAGE_KEY = 'globetrotter-user'
@@ -7,22 +6,31 @@ const STORAGE_KEY = 'globetrotter-user'
 function loadUser() {
   try {
     const stored = window.localStorage.getItem(STORAGE_KEY)
-    const parsed = stored ? JSON.parse(stored) : null
-    if (parsed && parsed.name) return parsed
+    return stored ? JSON.parse(stored) : null
   } catch (error) {
-    console.warn('Could not load saved profile, falling back to demo user.', error)
+    console.warn('Could not load saved user.', error)
+    return null
   }
-  return DEMO_USER
 }
 
 export function UserProvider({ children }) {
   const [user, setUser] = useState(loadUser)
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(user))
+    if (user) {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(user))
+    } else {
+      window.localStorage.removeItem(STORAGE_KEY)
+    }
   }, [user])
 
-  const updateUser = (patch) => setUser((prev) => ({ ...prev, ...patch }))
+  const updateUser = (patch) => {
+    setUser((prev) => (prev ? { ...prev, ...patch } : patch))
+  }
 
-  return <UserContext.Provider value={{ user, updateUser }}>{children}</UserContext.Provider>
+  return (
+    <UserContext.Provider value={{ user, updateUser }}>
+      {children}
+    </UserContext.Provider>
+  )
 }

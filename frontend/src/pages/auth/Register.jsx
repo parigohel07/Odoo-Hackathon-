@@ -4,8 +4,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import AuthLayout from './AuthLayout'
 import Button from '../../common/Button'
 import Input from '../../common/Input'
-import { mockRegister } from '../../data/mockData'
-import { setSession } from '../../common/session'
 
 export default function Register() {
   const navigate = useNavigate()
@@ -39,12 +37,32 @@ export default function Register() {
     }
     setLoading(true)
     try {
-      await mockRegister(form)
-      setSession({ name: form.name.trim(), email: form.email.trim() })
-      navigate('/')
-    } finally {
-      setLoading(false)
-    }
+  const response = await fetch('http://127.0.0.1:8000/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      username: form.name.trim(),
+      email: form.email.trim(),
+      password: form.password,
+    }),
+  })
+
+  const data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data.detail || 'Registration failed')
+  }
+
+  localStorage.setItem('globetrotter-user', JSON.stringify(data.user))
+
+  navigate('/')
+} catch (error) {
+  setErrors({ email: error.message })
+} finally {
+  setLoading(false)
+}
   }
 
   const passwordTrailing = (
