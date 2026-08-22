@@ -10,9 +10,9 @@
 
 export const DEMO_USER = {
   id: 'u-001',
-  name: 'Aarav Mehta',
-  email: 'aarav.mehta@example.com',
-  initials: 'AM',
+  name: 'Khooshi',
+  email: 'khooshi@example.com',
+  initials: 'K',
   bio: 'Collecting sunsets, one city at a time.',
 }
 

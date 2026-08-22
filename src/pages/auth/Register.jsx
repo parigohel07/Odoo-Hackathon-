@@ -67,7 +67,7 @@ export default function Register() {
         <Input
           label="Full name"
           icon={UserRound}
-          placeholder="Aarav Mehta"
+          placeholder="Khooshi"
           autoComplete="name"
           value={form.name}
           onChange={update('name')}
