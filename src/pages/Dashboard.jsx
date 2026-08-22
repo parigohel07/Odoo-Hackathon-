@@ -2,7 +2,7 @@ import { ArrowRight, CalendarDays, CircleCheck, Compass, Luggage, MapPinPlus } f
 import { Link } from 'react-router-dom'
 import Navbar from '../components/layout/Navbar'
 import PageContainer from '../components/layout/PageContainer'
-import { DEMO_USER } from '../data/mockData'
+import { useUser } from '../context/user'
 import { useTrips } from '../context/trips'
 
 const ACTIONS = [
@@ -34,6 +34,7 @@ const ACTIONS = [
 
 export default function Dashboard() {
   const { trips } = useTrips()
+  const { user } = useUser()
   const upcoming = trips.filter((trip) => trip.status === 'upcoming').length
   const planning = trips.filter((trip) => trip.status === 'planning').length
   const completed = trips.filter((trip) => trip.status === 'completed').length
@@ -52,7 +53,7 @@ export default function Dashboard() {
         <section className="mb-8">
           <p className="text-xs font-semibold tracking-widest text-primary uppercase">Khooshii HQ</p>
           <h1 className="font-display mt-1.5 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
-            Welcome back, {DEMO_USER.name.split(' ')[0]}
+            Welcome back, {user.name.split(' ')[0]}
           </h1>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink-muted sm:text-base">
             {trips.length === 0

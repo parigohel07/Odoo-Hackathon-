@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
-import { CalendarDays, ChevronDown, Compass, Home, Luggage, LogOut, Menu, Users, X } from 'lucide-react'
+import { CalendarDays, ChevronDown, Compass, Home, Luggage, LogOut, Map, Menu, Search, Settings, Users, X } from 'lucide-react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import ThemeToggle from '../../common/ThemeToggle'
-import { DEMO_USER } from '../../data/mockData'
 import { cn } from '../../common/cn'
+import { useUser } from '../../context/user'
 
 const NAV_ITEMS = [
   { to: '/', label: 'Home', icon: Home },
   { to: '/trips', label: 'My Trips', icon: Luggage },
   { to: '/explore', label: 'Explore', icon: Compass },
+  { to: '/search', label: 'Search', icon: Search },
   { to: '/calendar', label: 'Calendar', icon: CalendarDays },
-  { to: '/community', label: 'Community', icon: Users },
+  { to: '/budget', label: 'Budget', icon: Map },
 ]
 
 export default function Navbar() {
@@ -18,6 +19,15 @@ export default function Navbar() {
   const [profileOpen, setProfileOpen] = useState(false)
   const profileRef = useRef(null)
   const navigate = useNavigate()
+  const { user } = useUser()
+
+  const initials = (user.name || 'K')
+    .split(' ')
+    .map((part) => part[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join('')
+    .toUpperCase()
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -76,7 +86,7 @@ export default function Navbar() {
               className="flex cursor-pointer items-center gap-2 rounded-full border border-line bg-surface py-1.5 pr-3 pl-1.5 transition-colors hover:border-primary/40"
             >
               <span className="flex size-7 items-center justify-center rounded-full bg-linear-to-br from-candy-400 to-lav-400 text-xs font-bold text-white">
-                {DEMO_USER.initials}
+                {initials}
               </span>
               <ChevronDown
                 className={cn('size-4 text-ink-muted transition-transform', profileOpen && 'rotate-180')}
@@ -89,8 +99,8 @@ export default function Navbar() {
                 className="absolute right-0 mt-2 w-48 overflow-hidden rounded-xl border border-line bg-surface py-1 shadow-card-hover"
               >
                 <div className="border-b border-line px-4 py-2.5">
-                  <p className="truncate text-sm font-semibold text-ink">{DEMO_USER.name}</p>
-                  <p className="truncate text-xs text-ink-muted">{DEMO_USER.email}</p>
+                  <p className="truncate text-sm font-semibold text-ink">{user.name}</p>
+                  <p className="truncate text-xs text-ink-muted">{user.email}</p>
                 </div>
                 <button
                   type="button"
@@ -100,6 +110,15 @@ export default function Navbar() {
                 >
                   <Users className="size-4 text-ink-muted" aria-hidden />
                   View profile
+                </button>
+                <button
+                  type="button"
+                  role="menuitem"
+                  onClick={() => navigate('/settings')}
+                  className="flex w-full cursor-pointer items-center gap-2 px-4 py-2.5 text-sm text-ink transition-colors hover:bg-surface-2"
+                >
+                  <Settings className="size-4 text-ink-muted" aria-hidden />
+                  Settings
                 </button>
                 <button
                   type="button"
@@ -143,6 +162,14 @@ export default function Navbar() {
             >
               <Users className="size-4" aria-hidden />
               Profile
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate('/settings')}
+              className="flex cursor-pointer items-center gap-2 rounded-full px-3.5 py-2 text-sm font-medium text-ink-muted transition-colors hover:bg-surface-2 hover:text-ink"
+            >
+              <Settings className="size-4" aria-hidden />
+              Settings
             </button>
             <button
               type="button"

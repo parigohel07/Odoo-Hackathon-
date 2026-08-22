@@ -1,4 +1,5 @@
 import { CalendarDays, MapPin, Trash2, Users } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import Card from '../common/Card'
 import { cn } from '../common/cn'
 
@@ -17,12 +18,20 @@ function formatDate(iso) {
 }
 
 export default function TripCard({ trip, onDelete, className = '' }) {
+  const navigate = useNavigate()
   const { name, destination, startDate, endDate, status, budget, spent, travelers, imageUrl, gradient } =
     trip
   const percent = budget > 0 ? Math.min(100, Math.round((spent / budget) * 100)) : 0
 
   return (
-    <Card hoverable className={cn('overflow-hidden', className)}>
+    <Card hoverable className={cn('cursor-pointer overflow-hidden', className)}>
+      <div
+        role="button"
+        tabIndex={0}
+        aria-label={`Open ${name}`}
+        onClick={() => navigate(`/trips/${trip.id}`)}
+        onKeyDown={(event) => event.key === 'Enter' && navigate(`/trips/${trip.id}`)}
+      >
       <div className="relative h-40 w-full">
         {imageUrl ? (
           <img src={imageUrl} alt={name} className="size-full object-cover" loading="lazy" />
@@ -61,7 +70,10 @@ export default function TripCard({ trip, onDelete, className = '' }) {
             {onDelete && (
               <button
                 type="button"
-                onClick={onDelete}
+                onClick={(event) => {
+                  event.stopPropagation()
+                  onDelete()
+                }}
                 aria-label={`Delete ${name}`}
                 title="Delete trip"
                 className="cursor-pointer rounded-lg p-1 text-ink-muted transition-colors hover:bg-red-500/10 hover:text-red-500"
@@ -94,6 +106,7 @@ export default function TripCard({ trip, onDelete, className = '' }) {
             />
           </div>
         </div>
+      </div>
       </div>
     </Card>
   )

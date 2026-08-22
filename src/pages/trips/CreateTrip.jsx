@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { CalendarDays, Check, IndianRupee, MapPin, Plus, Users } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import Navbar from '../../components/layout/Navbar'
 import PageContainer from '../../components/layout/PageContainer'
 import Button from '../../common/Button'
@@ -25,10 +25,11 @@ const STATUSES = [
 
 export default function CreateTrip() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const { addTrip } = useTrips()
   const [form, setForm] = useState({
     name: '',
-    destination: '',
+    destination: searchParams.get('destination') || '',
     startDate: '',
     endDate: '',
     budget: '',
@@ -82,6 +83,7 @@ export default function CreateTrip() {
         imageUrl: '',
         gradient: form.gradient,
         notes: form.notes.trim(),
+        sections: [],
       })
       navigate('/trips')
     } finally {

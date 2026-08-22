@@ -30,7 +30,15 @@ export function TripsProvider({ children }) {
     setTrips((prev) => prev.filter((trip) => trip.id !== id))
   }
 
+  const updateTrip = (id, patch) => {
+    setTrips((prev) =>
+      prev.map((trip) => (trip.id === id ? { ...trip, ...(typeof patch === 'function' ? patch(trip) : patch) } : trip)),
+    )
+  }
+
   return (
-    <TripsContext.Provider value={{ trips, addTrip, deleteTrip }}>{children}</TripsContext.Provider>
+    <TripsContext.Provider value={{ trips, addTrip, deleteTrip, updateTrip }}>
+      {children}
+    </TripsContext.Provider>
   )
 }
