@@ -5,6 +5,7 @@ import AuthLayout from './AuthLayout'
 import Button from '../../common/Button'
 import Input from '../../common/Input'
 import { mockLogin } from '../../data/mockData'
+import { setSession } from '../../common/session'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -36,6 +37,7 @@ export default function Login() {
     setLoading(true)
     try {
       await mockLogin(form)
+      setSession({ email: form.email.trim() })
       navigate('/')
     } catch (error) {
       setErrors({ password: error.message })
@@ -95,7 +97,7 @@ export default function Login() {
             type="checkbox"
             checked={form.remember}
             onChange={update('remember')}
-            className="size-4 cursor-pointer rounded border-line accent-candy-500"
+            className="size-4 cursor-pointer rounded border-line accent-lav-500"
           />
           Remember me
         </label>

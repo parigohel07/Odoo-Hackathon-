@@ -5,6 +5,7 @@ import AuthLayout from './AuthLayout'
 import Button from '../../common/Button'
 import Input from '../../common/Input'
 import { mockRegister } from '../../data/mockData'
+import { setSession } from '../../common/session'
 
 export default function Register() {
   const navigate = useNavigate()
@@ -39,6 +40,7 @@ export default function Register() {
     setLoading(true)
     try {
       await mockRegister(form)
+      setSession({ name: form.name.trim(), email: form.email.trim() })
       navigate('/')
     } finally {
       setLoading(false)
@@ -119,7 +121,7 @@ export default function Register() {
               type="checkbox"
               checked={form.agree}
               onChange={update('agree')}
-              className="mt-0.5 size-4 cursor-pointer rounded border-line accent-candy-500"
+              className="mt-0.5 size-4 cursor-pointer rounded border-line accent-lav-500"
             />
             I agree to the Terms of Service and Privacy Policy.
           </label>
