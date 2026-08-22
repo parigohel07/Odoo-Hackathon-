@@ -17,6 +17,7 @@ import ShareTrip from './pages/ShareTrip'
 import Profile from './pages/Profile'
 import Settings from './pages/Settings'
 import Placeholder from './pages/Placeholder'
+import { RedirectIfAuthed, RequireAuth } from './common/authGuards'
 
 export default function App() {
   return (
@@ -25,20 +26,111 @@ export default function App() {
         <TripsProvider>
           <BrowserRouter>
             <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/trips" element={<MyTrips />} />
-              <Route path="/trips/new" element={<CreateTrip />} />
-              <Route path="/trips/:id" element={<TripDetail />} />
-              <Route path="/trips/:id/edit" element={<ItineraryBuilder />} />
-              <Route path="/explore" element={<Explore />} />
-              <Route path="/search" element={<SearchPage />} />
-              <Route path="/budget" element={<Budget />} />
-              <Route path="/calendar" element={<CalendarTimeline />} />
+              <Route
+                path="/login"
+                element={
+                  <RedirectIfAuthed>
+                    <Login />
+                  </RedirectIfAuthed>
+                }
+              />
+              <Route
+                path="/register"
+                element={
+                  <RedirectIfAuthed>
+                    <Register />
+                  </RedirectIfAuthed>
+                }
+              />
+              <Route
+                path="/"
+                element={
+                  <RequireAuth>
+                    <Dashboard />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/trips"
+                element={
+                  <RequireAuth>
+                    <MyTrips />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/trips/new"
+                element={
+                  <RequireAuth>
+                    <CreateTrip />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/trips/:id"
+                element={
+                  <RequireAuth>
+                    <TripDetail />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/trips/:id/edit"
+                element={
+                  <RequireAuth>
+                    <ItineraryBuilder />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/explore"
+                element={
+                  <RequireAuth>
+                    <Explore />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/search"
+                element={
+                  <RequireAuth>
+                    <SearchPage />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/budget"
+                element={
+                  <RequireAuth>
+                    <Budget />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/calendar"
+                element={
+                  <RequireAuth>
+                    <CalendarTimeline />
+                  </RequireAuth>
+                }
+              />
               <Route path="/share/:id" element={<ShareTrip />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/settings" element={<Settings />} />
+              <Route
+                path="/profile"
+                element={
+                  <RequireAuth>
+                    <Profile />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <RequireAuth>
+                    <Settings />
+                  </RequireAuth>
+                }
+              />
               <Route path="*" element={<Placeholder />} />
             </Routes>
           </BrowserRouter>

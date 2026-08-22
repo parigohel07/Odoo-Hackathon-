@@ -90,7 +90,7 @@ export default function Settings() {
                 type="checkbox"
                 checked={notifications}
                 onChange={(event) => setNotifications(event.target.checked)}
-                className="size-4 cursor-pointer accent-candy-500"
+                className="size-4 cursor-pointer accent-lav-500"
               />
             </label>
           </Card>

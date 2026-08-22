@@ -1,5 +1,3 @@
-import { Navigate } from 'react-router-dom'
-
 const SESSION_KEY = 'globetrotter-session'
 
 export function getSession() {
@@ -20,14 +18,4 @@ export function setSession(session) {
 
 export function clearSession() {
   window.localStorage.removeItem(SESSION_KEY)
-}
-
-export function RequireAuth({ children }) {
-  if (!getSession()) return <Navigate to="/login" replace />
-  return children
-}
-
-export function RedirectIfAuthed({ children }) {
-  if (getSession()) return <Navigate to="/" replace />
-  return children
 }

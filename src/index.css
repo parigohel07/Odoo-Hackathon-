@@ -145,7 +145,7 @@
   }
 
   ::selection {
-    @apply bg-lav-200 text-lav-700 dark:bg-lav-500/40 dark:text-lav-100;
+    @apply bg-lav-200 text-lav-600 dark:bg-lav-500/40 dark:text-lav-100;
   }
 
   ::-webkit-scrollbar {

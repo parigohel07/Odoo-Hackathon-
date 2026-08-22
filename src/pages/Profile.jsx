@@ -84,7 +84,7 @@ export default function Profile() {
 
         <Card className="mb-8 p-6 sm:p-8">
           <div className="mb-6 flex items-center gap-5">
-            <span className="font-display flex size-20 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-candy-400 to-lav-400 text-2xl font-bold text-white">
+            <span className="font-display flex size-20 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-lav-400 to-caramel-300 text-2xl font-bold text-white">
               {initials}
             </span>
             <div className="grid grid-cols-3 gap-6 text-center">

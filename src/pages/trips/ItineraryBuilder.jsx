@@ -156,7 +156,7 @@ export default function ItineraryBuilder() {
                     onClick={() => bumpBudget(section.id)}
                     title="Add ₹1,000"
                     aria-label="Add ₹1,000 to budget"
-                    className="flex size-7 cursor-pointer items-center justify-center rounded-lg bg-primary-soft font-semibold text-primary-strong transition-colors hover:bg-candy-200 dark:hover:bg-espresso-800"
+                    className="flex size-7 cursor-pointer items-center justify-center rounded-lg bg-primary-soft font-semibold text-primary-strong transition-colors hover:bg-lav-200 dark:hover:bg-espresso-800"
                   >
                     <Plus className="size-3.5" aria-hidden />
                   </button>

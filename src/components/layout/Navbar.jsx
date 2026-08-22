@@ -3,6 +3,7 @@ import { CalendarDays, ChevronDown, Compass, Home, Luggage, LogOut, Map, Menu, S
 import { NavLink, useNavigate } from 'react-router-dom'
 import ThemeToggle from '../../common/ThemeToggle'
 import { cn } from '../../common/cn'
+import { clearSession } from '../../common/session'
 import { useUser } from '../../context/user'
 
 const NAV_ITEMS = [
@@ -50,6 +51,7 @@ export default function Navbar() {
   const handleLogout = () => {
     setProfileOpen(false)
     setMenuOpen(false)
+    clearSession()
     navigate('/login')
   }
 
@@ -85,7 +87,7 @@ export default function Navbar() {
               aria-expanded={profileOpen}
               className="flex cursor-pointer items-center gap-2 rounded-full border border-line bg-surface py-1.5 pr-3 pl-1.5 transition-colors hover:border-primary/40"
             >
-              <span className="flex size-7 items-center justify-center rounded-full bg-linear-to-br from-candy-400 to-lav-400 text-xs font-bold text-white">
+              <span className="flex size-7 items-center justify-center rounded-full bg-linear-to-br from-lav-400 to-caramel-300 text-xs font-bold text-white">
                 {initials}
               </span>
               <ChevronDown

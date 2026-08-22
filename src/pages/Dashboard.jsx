@@ -11,8 +11,8 @@ const ACTIONS = [
     icon: MapPinPlus,
     title: 'Create Trips',
     text: 'Start a fresh adventure — pick dates, budget and a cover style.',
-    accent: 'bg-candy-100 text-candy-600 dark:bg-candy-500/15 dark:text-candy-300',
-    ring: 'hover:border-candy-500/50 hover:shadow-candy-500/20',
+    accent: 'bg-caramel-100 text-caramel-600 dark:bg-caramel-500/15 dark:text-caramel-300',
+    ring: 'hover:border-caramel-500/50 hover:shadow-caramel-500/20',
   },
   {
     to: '/trips',
