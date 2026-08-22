@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", "Outfit", ui-serif, Georgia, serif;
+
+  --color-candy-50: #fff5f8;
+  --color-candy-100: #ffe9f1;
+  --color-candy-200: #fcd5e3;
+  --color-candy-300: #f8b3cc;
+  --color-candy-400: #f38bb0;
+  --color-candy-500: #e9649a;
+  --color-candy-600: #d14a83;
+  --color-candy-700: #ae3769;
+
+  --color-lav-50: #f7f5ff;
+  --color-lav-100: #efebff;
+  --color-lav-200: #dfd7ff;
+  --color-lav-300: #c9baf7;
+  --color-lav-400: #ab8cf2;
+  --color-lav-500: #8f6ce4;
+  --color-lav-600: #7551c9;
+
+  --color-mint-50: #effcf7;
+  --color-mint-100: #dcf7ed;
+  --color-mint-200: #bceedd;
+  --color-mint-300: #8fdcc6;
+  --color-mint-400: #5fc5aa;
+  --color-mint-500: #3fae92;
+  --color-mint-600: #2f8c76;
+
+  --color-espresso-50: #faf6f2;
+  --color-espresso-100: #f3ebe4;
+  --color-espresso-200: #e7d9cd;
+  --color-espresso-300: #d6bfa9;
+  --color-espresso-400: #be9b7f;
+  --color-espresso-500: #a67d61;
+  --color-espresso-600: #8a6349;
+  --color-espresso-700: #6e4d38;
+  --color-espresso-800: #453325;
+  --color-espresso-900: #33251c;
+  --color-espresso-950: #201611;
+
+  --color-caramel-100: #fdf1dd;
+  --color-caramel-200: #fae2ba;
+  --color-caramel-300: #f2cb8e;
+  --color-caramel-400: #e8ac60;
+  --color-caramel-500: #d9913c;
+  --color-caramel-600: #b97429;
+
+  --shadow-card: 0 1px 2px rgb(52 42 71 / 0.05), 0 12px 32px -16px rgb(143 108 228 / 0.28);
+  --shadow-card-hover: 0 2px 4px rgb(52 42 71 / 0.06), 0 20px 44px -16px rgb(143 108 228 / 0.38);
+
+  --animate-floaty: floaty 7s ease-in-out infinite;
+  --animate-floaty-delayed: floaty 8.5s ease-in-out 1.6s infinite;
+  --animate-drift: drift 34s linear infinite;
+  --animate-drift-fast: drift 24s linear infinite;
+  --animate-spin-slow: spin-slow 16s linear infinite;
+  --animate-ticker-in: ticker-in 0.45s ease-out both;
+  --animate-pop: pop 0.35s ease;
+  --animate-confetti: confetti-fall 2.6s ease-in forwards;
+
+  @keyframes pop {
+    0% {
+      transform: scale(0.6);
+    }
+    60% {
+      transform: scale(1.3);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes confetti-fall {
+    0% {
+      transform: translate3d(0, -8vh, 0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translate3d(var(--drift, 0px), 108vh, 0) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes floaty {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+
+  @keyframes drift {
+    from {
+      transform: translateX(-25vw);
+    }
+    to {
+      transform: translateX(125vw);
+    }
+  }
+
+  @keyframes spin-slow {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes ticker-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+:root {
+  /* Buttercream + lavender */
+  --page: #fbf4e2;
+  --surface: #fffcf3;
+  --surface-2: #f4ecd9;
+  --ink: #342c47;
+  --ink-muted: #776c85;
+  --line: #eadfc6;
+  --primary: var(--color-lav-500);
+  --primary-strong: var(--color-lav-600);
+  --primary-soft: var(--color-lav-100);
+}
+
+.dark {
+  /* Espresso + beige */
+  --page: #201813;
+  --surface: #2b211a;
+  --surface-2: #372a20;
+  --ink: #f2e8d5;
+  --ink-muted: #c8b896;
+  --line: #44362a;
+  --primary: var(--color-lav-400);
+  --primary-strong: var(--color-lav-300);
+  --primary-soft: #3a3050;
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-primary-soft: var(--primary-soft);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-page font-sans text-ink antialiased;
+  }
+
+  ::selection {
+    @apply bg-lav-200 text-lav-600 dark:bg-lav-500/40 dark:text-lav-100;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-line;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
